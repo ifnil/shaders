@@ -26,8 +26,9 @@ float naive(vec2 uv, float t) {
     }
   }
 
-  return mdist;
-  // return cidx;
+  // return m + mdist;
+  // return mdist;
+  return cidx;
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
@@ -37,9 +38,11 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 
   vec2 uv = (fc * 2.0 - res.xy) / res.y;
 
-  t *= 0.3;
   // vec3 color = vec3(naive(uv, t) / 50.0) + vec3(N22(uv).xyx * 0.2);
-  vec3 color = vec3(naive(uv, t)) + vec3(N22(uv).xyx * 0.2);
+  // vec3 color = vec3(naive(uv, t)) + vec3(N22(uv).xyx * 0.2);
+  // vec3 color = vec3(naive(uv, t));
+
+  vec3 color = vec3(naive(uv, t) / 50.0);
   fragColor = vec4(color, 1.0);
 }
 
