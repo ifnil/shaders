@@ -64,7 +64,8 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   bt = vec2(-0.255, 0.5);
   float rec = rectangle(uv, lr, bt, 0.01);
 
-  col += vec3(1.0, 1.0, 1.0) * mask + rec * vec3(1.0, 0.0, 0.0);
+  // col += vec3(1.0, 1.0, 1.0) * mask + rec * vec3(1.0, 0.0, 0.0);
+  col += vec3(1.0, 0.0, 0.0) * mask + rec * vec3(1.0, 0.0, 0.0);
 
   fragColor = vec4(col, 1.0);
 }

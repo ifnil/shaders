@@ -2,6 +2,11 @@
 precision mediump float;
 #endif
 
+vec3 rgb(int r, int g, int b) {
+  vec3 p = vec3(float(r), float(g), float(b));
+  return normalize(p);
+}
+
 vec2 N22(vec2 p) {
   vec3 a = fract(p.xyx * vec3(123.34, 234.34, 345.65));
   a += dot(a, a + 34.45);
@@ -15,10 +20,10 @@ float naive(vec2 uv, float t) {
 
   for (float i = 0.0; i < 50.0; i++) {
     vec2 n = N22(vec2(i));
-    vec2 p = sin(n * t);
+    vec2 p = cos(n * t);
     float d = length(uv - p);
 
-    m += smoothstep(0.02, 0.01, d);
+    m += smoothstep(0.06, 0.01, d);
 
     if (d < mdist) {
       mdist = d;
@@ -27,8 +32,8 @@ float naive(vec2 uv, float t) {
   }
 
   // return m + mdist;
-  // return mdist;
-  return cidx;
+  // return cidx;
+  return mdist - m;
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
@@ -42,7 +47,9 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   // vec3 color = vec3(naive(uv, t)) + vec3(N22(uv).xyx * 0.2);
   // vec3 color = vec3(naive(uv, t));
 
-  vec3 color = vec3(naive(uv, t) / 50.0);
+  t *= 0.2;
+  // vec3 color = vec3(naive(uv, t) / 50.0) + vec3(0.69, 0.420, 0.2);
+  vec3 color = -vec3(naive(uv, t)) + rgb(90, 191, 209);
   fragColor = vec4(color, 1.0);
 }
 

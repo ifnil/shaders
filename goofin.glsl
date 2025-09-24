@@ -67,7 +67,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   color = pct * rgb(231, 160, 167) - rgb(169, 242, 255);
 
   // float f2 = noise2d(st) * st.x + f1;
-  float f2 = noise(st) * st.x + f1;
+  float f2 = noise(st) * st.x;
   pct = plot(st, f2);
   color += pct * rgb(231, 71, 167);
 
